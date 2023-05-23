@@ -1,7 +1,7 @@
 {
   "name": "confluence-to-markdown",
   "version": "1.1.2",
-  "author": "Martin Lukes",
+  "author": "Martin Lukes, K",
   "license": "MIT",
   "description": "Convert Confluence Pages to Markdown",
   "keywords": [
@@ -9,12 +9,10 @@
     "Markdown",
     "Confluence to Markdown"
   ],
-  "bin": "./src/index.coffee",
-  "main": "./src/index.coffee",
-  "repository": "git@github.com:meridius/confluence-to-markdown.git",
+  "main": "./src/index.ts",
+  "repository": "https://github.com/KkEi34/confluence-to-markdown",
   "dependencies": {
     "cheerio": "^0.22.0",
-    "coffee-script": "^1.10.0",
     "fs": "0.0.1-security",
     "mkdirp": "^0.5.1",
     "ncp": "^2.0.0",
@@ -29,7 +27,6 @@
     "@types/jest": "^26.0.14",
     "@types/node": "15.6.1",
     "jest": "^24.7.1",
-    "mocha": "^3.1.0",
     "ts-jest": "^24.0.2",
     "tsc-watch": "^2.1.2",
     "tslint": "^5.16.0",
@@ -38,9 +35,6 @@
   "scripts": {
     "start": "npx tsc-watch --onsuccess \"node dist/index.js\"",
     "build": "npx tsc-watch",
-    "test": "npx jest --watchAll",
-    "start-old": "coffee ./src/index.coffee",
-    "test-old": "NODE_ENV=test mocha -r coffee-script/register --compilers coffee:coffee-script --recursive ./test/*.coffee",
-    "test-watch-old": "NODE_ENV=test mocha -r coffee-script/register --compilers coffee:coffee-script --recursive test/*.coffee --watch"
+    "test": "npx jest --watchAll"
   }
 }
