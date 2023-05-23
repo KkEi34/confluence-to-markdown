@@ -23,13 +23,24 @@
     "sync-exec": "^0.6.2"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
-    "chai-fs": "^0.1.0",
-    "mocha": "^3.1.0"
+    "@types/babel__core": "7.1.14",
+    "@types/babel__traverse": "7.11.1",
+    "@types/cheerio": "^0.22.31",
+    "@types/jest": "^26.0.14",
+    "@types/node": "15.6.1",
+    "jest": "^24.7.1",
+    "mocha": "^3.1.0",
+    "ts-jest": "^24.0.2",
+    "tsc-watch": "^2.1.2",
+    "tslint": "^5.16.0",
+    "typescript": "^3.5.1"
   },
   "scripts": {
-    "start": "coffee ./src/index.coffee",
-    "test": "NODE_ENV=test mocha -r coffee-script/register --compilers coffee:coffee-script --recursive ./test/*.coffee",
-    "test-watch": "NODE_ENV=test mocha -r coffee-script/register --compilers coffee:coffee-script --recursive test/*.coffee --watch"
+    "start": "npx tsc-watch --onsuccess \"node dist/index.js\"",
+    "build": "npx tsc-watch",
+    "test": "npx jest --watchAll",
+    "start-old": "coffee ./src/index.coffee",
+    "test-old": "NODE_ENV=test mocha -r coffee-script/register --compilers coffee:coffee-script --recursive ./test/*.coffee",
+    "test-watch-old": "NODE_ENV=test mocha -r coffee-script/register --compilers coffee:coffee-script --recursive test/*.coffee --watch"
   }
 }
