@@ -46,15 +46,12 @@ parameter | description
   - this can be changed by finding all occurances of `gitit requires link to pages without .md extension` in the `.coffee` files and adding the extension there.
   - or you can send a PR ;)
 - the pandoc utility can accept quite a few options to alter its default behavior
-  - those can be passed to it by adding them to `@outputTypesAdd`, `@outputTypesRemove`, `@extraOptions` properties in the [`App.coffee`](src/App.coffee) file
-  - or you can send a PR ;)
   - here is the [list of options][pandoc-options] pandoc can accept
 - throughout the application a single console logger is used, its default verbosity is set to INFO
-  - you can change the verbosity to one of DEBUG, INFO, WARNING, ERROR levels in the [`Logger.coffee`](src/App.coffee) file
-  - or you can send a PR ;)
+  - you can change the verbosity to one of DEBUG, INFO, WARNING, ERROR levels in the [`Logger.ts`](src/App.ts) file
 - a series of formatter rules is applied to the HTML text of Confluence page for it to be converted properly
-  - you can view and/or change them in the [`Page.coffee`](src/Page.coffee) file
-  - the rules themselves are located in the [`Formatter.coffee`](src/Formatter.coffee) file
+  - you can view and/or change them in the [`Page.ts`](src/Page.ts) file
+  - the rules themselves are located in the [`Formatter.ts`](src/Formatter.ts) file
 
 
 ### Room for improvement
