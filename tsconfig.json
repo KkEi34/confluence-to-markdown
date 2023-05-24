@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "target": "es2018",
+        "outDir": "./dist",
+        "rootDir": "./src",
+        "module": "commonjs",
+        "esModuleInterop": true,
+        //"module": "es6",
+        //"lib": ["es5", "dom", "es2015.collection"],
+        "sourceMap": true,
+        "allowSyntheticDefaultImports": true,
+    }
+}
