@@ -112,7 +112,10 @@ export class App {
     for (let page of pages) {
       (page => {
         if (page.fileName === 'index.html') {
-          indexHtmlFiles.push(path.join(page.space, 'index')); // gitit requires link to pages without .md extension
+          //TODO:
+          // right now just skip index
+          return;
+          //indexHtmlFiles.push(path.join(page.space, 'index')); // gitit requires link to pages without .md extension
         }
         
         // return this.convertPage(page, dirIn, dirOut, pages);
@@ -120,7 +123,9 @@ export class App {
       })(page);
     }
 
-    if (!this.utils.isFile(dirIn)) { this.writeGlobalIndexFile(indexHtmlFiles, dirOut); }
+    
+    //TODO:
+    //if (!this.utils.isFile(dirIn)) { this.writeGlobalIndexFile(indexHtmlFiles, dirOut); }
     return this.logger.info('Conversion done');
   }
 
