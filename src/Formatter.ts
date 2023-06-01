@@ -1,7 +1,7 @@
 import cheerio from "cheerio";
 import path from 'path';
 import os from 'os';
-import { link } from "fs";
+import { link, mkdtemp } from "fs";
 
 import { Utils } from "./Utils";
 import { Page } from "./Page";
@@ -443,4 +443,77 @@ export class Formatter {
         return $(el).remove();
       }).end();
   }
+
+  parseTable($content: cheerio.Cheerio): [cheerio.Cheerio, boolean] {
+    // const $ = this._cheerio;
+    const $ = cheerio;
+    let fixed = false;
+    const table = $content
+      .find('table')
+      .each((i, el) => {
+        const rows =  $(el).find('tr');
+        let rowIdx = 0;
+        const mdHeaders: string[] = [];
+        const mdCells = [];
+        let colCount: number;
+        for(let r = 0; r< rows.length; r++){
+          const headers = $(rows[r]).find('th');
+          if(headers.length){
+            let currentHeader = headers.first();
+            while(currentHeader.length > 0){
+              mdHeaders.push(currentHeader.html().trim());
+              currentHeader = currentHeader.next();
+            }
+            colCount = headers.length;
+          } 
+          const cells = $(rows[r]).find('td');
+          if(cells.length){
+            if(!colCount){
+              colCount = cells.length;
+            } else if(cells.length != colCount){
+              return [$content, false];
+            }
+            colCount = cells.length;
+            let rowCells: string[] = [];
+            let currentCell = cells.first();
+            while(currentCell.length > 0) {
+                rowCells.push(currentCell.html().trim().replace(/&#xA0|<br>/, ''));
+                currentCell = currentCell.next();
+            }
+            if(rowCells.length > 0){
+              mdCells.push(rowCells);
+            }
+          }
+          rowIdx++;
+        }
+        if(mdCells.length || mdHeaders.length){
+          let mdTable = '';
+          for(let i=0; i<colCount; i++){
+            mdTable += `| ${mdHeaders[i] ? mdHeaders[i] : ''} `;
+          }
+          mdTable += `|\n`;
+          const separator = new Array<string>(colCount)
+            .fill('----')
+            .join('|');
+          mdTable += '| ' + separator + '|\n';
+          for(let i=0; i<mdCells.length; i++){
+              for(let j=0; j<colCount; j++){
+                mdTable += `| ${mdCells[i][j]} `;
+              }
+              mdTable += `|\n`;
+          }
+          return [$(el).replaceWith(`<pre class="table">${mdTable}</pre>`), true];
+        } 
+      });
+    
+    return [$content, false];
+  }
+
+  postProcessConvertedMdTables(text: string): string {
+    const tableBlockRegEx = /`{3}\s+table((.|\n|\r)*?)`{3}/gm;
+    return text.replace(tableBlockRegEx, (match, mdTable) => {
+      return mdTable;
+    });
+  }
+
 }

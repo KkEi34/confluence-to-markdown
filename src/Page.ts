@@ -78,6 +78,7 @@ export class Page {
     let warningFixed = false;
     let infoFixed = false;
     const fixEmptyLines = true;
+    let tableParsed = false;
 
     let content = this.formatter.getRightContentByFileName(this.content, this.fileName);
     content = this.formatter.fixHeadline(content);
@@ -89,6 +90,7 @@ export class Page {
     content = this.formatter.removeOptionalAttributesFromLink(content);
     content = this.formatter.fixEmptyHeading(content);
     content = this.formatter.fixPreformattedText(content);
+    [content, tableParsed] = this.formatter.parseTable(content);
     content = this.formatter.fixImageWithinSpan(content);
     content = this.formatter.removeImgOptionalAttributes(content);
     content = this.formatter.replaceArbitraryElementsWithText(content);
@@ -99,7 +101,7 @@ export class Page {
     //content = this.formatter.addPageHeading(content, this.heading);
     content = this.formatter.removePageTitle(content);
 
-    return [this.formatter.getHtml(content), noteFixed || warningFixed || infoFixed || fixEmptyLines];
+    return [this.formatter.getHtml(content), noteFixed || warningFixed || infoFixed || fixEmptyLines || tableParsed];
   }
 }
 

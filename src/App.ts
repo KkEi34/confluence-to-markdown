@@ -174,6 +174,7 @@ export class App {
       text = this.formatter.postProcessInfoBlock(text);
       text = this.formatter.postProcessEmptyLines(text);
       text = this.formatter.addEolAfterQuoteBlocks(text);
+      text = this.formatter.postProcessConvertedMdTables(text);
       
       fs.writeFileSync(fullOutFileName, text, {flag: 'w'});
     }
