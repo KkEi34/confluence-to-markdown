@@ -23,7 +23,7 @@ export class App {
   ];
   static outputTypesRemove = [];
   static extraOptions = [
-    '--markdown-headings=atx', // Setext-style headers (underlined) | ATX-style headers (prefixed with hashes)
+    //'--markdown-headings=atx', // Setext-style headers (underlined) | ATX-style headers (prefixed with hashes)
     '--wrap=none'
   ];
   
