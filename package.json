@@ -1,6 +1,6 @@
 {
   "name": "confluence-to-markdown",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "author": "Martin Lukes, K",
   "license": "MIT",
   "description": "Convert Confluence Pages to Markdown",
