@@ -8,6 +8,7 @@ import { Formatter } from "./Formatter";
 import cheerio from "cheerio";
 import { App } from "./App";
 import { PageFactory } from "./PageFactory";
+import { Options } from "./options";
 
 describe('App', function() {
 
@@ -24,7 +25,8 @@ describe('App', function() {
     const utils = new Utils();
     const formatter = new Formatter(utils, logger);
     const pageFactory = new PageFactory(formatter, utils);
-    const app = new App(utils, formatter, pageFactory, logger)
+    const options = new Options();
+    const app = new App(utils, formatter, pageFactory, logger, options)
     return app.convert(pathResource, pathResult);
   });
 
@@ -41,7 +43,8 @@ describe('App', function() {
     const utils = new Utils();
     const formatter = new Formatter(utils, logger);
     const pageFactory = new PageFactory(formatter, utils);
-    const app = new App(utils, formatter, pageFactory, logger)
+    const options = new Options();
+    const app = new App(utils, formatter, pageFactory, logger, options)
     return app.convert(pathResource, pathResult);
   });
 });

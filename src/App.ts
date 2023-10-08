@@ -9,6 +9,7 @@ import { Logger } from "./Logger";
 import { Page } from "./Page";
 import { PageFactory } from "./PageFactory";
 import { Utils } from "./Utils";
+import { Options } from "./options";
 
 export class App {
   static outputTypesAdd = [
@@ -33,6 +34,7 @@ export class App {
   logger: Logger;
   
   pandocOptions: string;
+  options: Options
 
   /**
    * @param {fs} _fs Required lib
@@ -43,8 +45,9 @@ export class App {
    * @param {Formatter} formatter My lib
    * @param {PageFactory} pageFactory My lib
    * @param {Logger} logger My lib
+   * @param {Options} options My lib
    */
-  constructor(utils: Utils, formatter: any, pageFactory: PageFactory, logger: any) {
+  constructor(utils: Utils, formatter: any, pageFactory: PageFactory, logger: any, options: Options) {
 
 
     // // @link http://hackage.haskell.org/package/pandoc For options description
@@ -74,6 +77,7 @@ export class App {
       types ? '-t ' + types : '',
       App.extraOptions.join(' ')
     ].join(' ');
+    this.options = options;
   }
 
 
@@ -162,7 +166,8 @@ export class App {
 
     const tempInputFile = fullOutFileName + '~';
     fs.writeFileSync(tempInputFile, text, { flag: 'w' });
-    const command = `pandoc -f html ${this.pandocOptions} -o "${fullOutFileName}" "${tempInputFile}"`;
+    const pandocPath = this.options.pandocPath ? path.join(this.options.pandocPath, 'pandoc') : 'pandoc';
+    const command = `${pandocPath} -f html ${this.pandocOptions} -o "${fullOutFileName}" "${tempInputFile}"`;
     const out = exec(command, { cwd: fullOutDirName });
     if (out.status > 0) { this.logger.error(out.stderr); }
 
